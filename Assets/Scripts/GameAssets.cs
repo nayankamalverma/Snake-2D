@@ -13,5 +13,6 @@ public class GameAssets : MonoBehaviour
     public Sprite snakeBodySprite;
     public Sprite foodSprite;
     public GameObject foodPrefab;
+    public GameObject SnakeBodyPrefab;
 
 }

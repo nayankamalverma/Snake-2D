@@ -26,7 +26,7 @@ public class LevelGrid : MonoBehaviour
     {
         do
         {
-            foodGridPosition = new Vector2Int(Random.Range(1, maxBoundX - 1), Random.Range(1, maxBoundY - 1));
+            foodGridPosition = new Vector2Int(Random.Range(1, maxBoundX - 3), Random.Range(1, maxBoundY - 3));
         } while (snake.getSnakeFullBodyPosition().IndexOf(foodGridPosition) != -1);
 
         Instantiate(GameAssets.Instance.foodPrefab, new Vector3(foodGridPosition.x, foodGridPosition.y), Quaternion.identity);
