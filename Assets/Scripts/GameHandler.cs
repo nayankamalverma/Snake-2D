@@ -3,7 +3,7 @@
 public class GameHandler : MonoBehaviour {
 
     [SerializeField]
-    private Snake snake;
+    private SnakeController snake;
     private LevelGrid levelGrid;
     private int maxBoundX;
     private int maxBoundY;
@@ -17,7 +17,7 @@ public class GameHandler : MonoBehaviour {
         maxBoundX = (int)grid.transform.localScale.x;
         maxBoundY = (int)grid.transform.localScale.y;
         grid.transform.position = new Vector3(maxBoundX/2, maxBoundY/2);
-        camera.transform.position = new Vector3(maxBoundX/2,maxBoundY/2,-10f);
+        camera.transform.position = new Vector3(maxBoundX/2,maxBoundY/2+1,-10f);
         
     }
     private void Start() {

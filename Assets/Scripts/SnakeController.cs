@@ -1,12 +1,7 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
-public class Snake : MonoBehaviour
+public class SnakeController : MonoBehaviour
 {
     //snake related vars
     private Vector2Int gridPostition; //snake head grid position
@@ -16,8 +11,14 @@ public class Snake : MonoBehaviour
     [SerializeField]
     private int snakeBodySize;
     private List<SnakeMovePosition> snakeBodyPositionList;
-    private List<SnakeBodyPart> snakeBodyPartList; 
-    
+    private List<SnakeBodyPart> snakeBodyPartList;
+    [SerializeField]
+    private ScoreController scoreController;
+    [SerializeField]
+    private GameObject gamePause;
+    [SerializeField]
+    private GameObject gameOver;
+
     //other vars
     private LevelGrid levelGrid;
     private int maxBoundX;  //grid size x axis
@@ -46,6 +47,11 @@ public class Snake : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            gamePause.SetActive(true);
+            gameObject.GetComponent<SnakeController>().enabled = false;
+        }
         InputHandler();
         GridMovementHandler();
     }
@@ -111,27 +117,31 @@ public class Snake : MonoBehaviour
             gridPostition += gridMoveDirectionVector;
 
             /// checking if snake ate food or not and it true increase snake size
-            bool snakeAteFood = levelGrid.SnakeAteFood(gridPostition);
-            if (snakeAteFood)
-            {
-                snakeBodySize++;
-                CreateSnakeBody();
-            }
+           // bool snakeAteFood = levelGrid.SnakeAteFood(gridPostition);
+        //    if (snakeAteFood)
+       //     {
+        //        snakeBodySize++;
+        //        CreateSnakeBody();
+        //   }
 
             if(snakeBodyPositionList.Count >= snakeBodySize + 1)
             {
                 snakeBodyPositionList.RemoveAt(snakeBodyPositionList.Count - 1);
             }
-
+            ScreenWraping();
             transform.position = new Vector3(gridPostition.x, gridPostition.y);
             transform.eulerAngles = new Vector3(0, 0, Angle(gridMoveDirection));
 
             UpdateSnakeBodyPart();
-
-            
-
-
         }
+    }
+
+    public void SnakeAteFood()
+    {
+        snakeBodySize++;
+        CreateSnakeBody();
+        scoreController.IncreaseScore(10);
+        levelGrid.SpawnFood();
     }
 
     public static float Angle(MoveDirection move)
@@ -202,20 +212,14 @@ public class Snake : MonoBehaviour
 
         public SnakeBodyPart(int bodyIndex)
         {
-            GameObject snakeBody = new GameObject("SnakeBody", typeof(SpriteRenderer));
-            snakeBody.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.snakeBodySprite;
+            GameObject snakeBody = Instantiate(GameAssets.Instance.SnakeBodyPrefab);
             snakeBody.GetComponent<SpriteRenderer>().sortingOrder = -bodyIndex;
-            CapsuleCollider2D capCol = snakeBody.AddComponent<CapsuleCollider2D>();
-            capCol.size = new Vector2(0.9f, 1.1f);
-            capCol.offset = new Vector2(0f, -0.06f);
-            capCol.isTrigger = true;
             transform = snakeBody.transform;
         }
 
         public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition)
         {
             snakeBodyPostion = snakeMovePosition;
-            transform.position = new Vector3(snakeMovePosition.GetGridPosition().x, snakeMovePosition.GetGridPosition().y);
 
             float angle;
             switch (snakeMovePosition.GetDirection())
@@ -266,6 +270,7 @@ public class Snake : MonoBehaviour
                     break;
             }
 
+            transform.position = new Vector3(snakeMovePosition.GetGridPosition().x, snakeMovePosition.GetGridPosition().y);
             transform.eulerAngles = new Vector3(0, 0,angle);
         }
     }
@@ -300,6 +305,11 @@ public class Snake : MonoBehaviour
             }
             return prevGridPosition.direction;
         }
+    }
+
+    public void GameOverScreen()
+    {
+        gameOver.SetActive(true);
     }
 
 }
