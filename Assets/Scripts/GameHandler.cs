@@ -3,7 +3,7 @@
 public class GameHandler : MonoBehaviour {
 
     [SerializeField]
-    private Snake snake;
+    private SnakeController snake;
     private LevelGrid levelGrid;
     private int maxBoundX;
     private int maxBoundY;

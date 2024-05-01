@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class Snake : MonoBehaviour
+public class SnakeController : MonoBehaviour
 {
     //snake related vars
     private Vector2Int gridPostition; //snake head grid position
@@ -111,12 +111,12 @@ public class Snake : MonoBehaviour
             gridPostition += gridMoveDirectionVector;
 
             /// checking if snake ate food or not and it true increase snake size
-            bool snakeAteFood = levelGrid.SnakeAteFood(gridPostition);
-            if (snakeAteFood)
-            {
-                snakeBodySize++;
-                CreateSnakeBody();
-            }
+           // bool snakeAteFood = levelGrid.SnakeAteFood(gridPostition);
+        //    if (snakeAteFood)
+       //     {
+        //        snakeBodySize++;
+        //        CreateSnakeBody();
+        //   }
 
             if(snakeBodyPositionList.Count >= snakeBodySize + 1)
             {
@@ -132,6 +132,13 @@ public class Snake : MonoBehaviour
 
 
         }
+    }
+
+    public void SnakeAteFood()
+    {
+        snakeBodySize++;
+        CreateSnakeBody();
+        levelGrid.SpawnFood();
     }
 
     public static float Angle(MoveDirection move)
