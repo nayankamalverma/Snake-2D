@@ -18,7 +18,11 @@ public class PauseMenuController : MonoBehaviour
     void ResumeGame()
     {
         SoundManger.Instance.Play(Sounds.ButtonClick);
-        GameManager.Instance.ResumeGame();
+        try {GameManager.Instance.ResumeGame(); }catch(System.Exception e)
+        {
+            CoOpGameManager.Instance.ResumeGame();
+        }
+        
         gameObject.SetActive(false);
     }
 

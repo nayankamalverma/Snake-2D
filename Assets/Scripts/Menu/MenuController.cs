@@ -22,7 +22,7 @@ public class MenuController : MonoBehaviour
     private void LoadCoOpGame()
     {
         SoundManger.Instance.Play(Sounds.ButtonClick);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
     private void ExitGame()
     {

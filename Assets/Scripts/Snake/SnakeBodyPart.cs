@@ -17,12 +17,12 @@ namespace Assets.Scripts.Snake
         public SnakeBodyPart(int bodyIndex,string objectTag)
         {
             GameObject snakeBody;
-            if(objectTag == "Bluesnake")
+            if(objectTag == "BlueSnake")
             {
-                snakeBody = Instantiate(GameAssets.Instance.SnakeBodyPrefab);
+                snakeBody = Instantiate(GameAssets.Instance.BlueSnakeBodyPerfab);
             }else
             {
-                snakeBody = Instantiate(GameAssets.Instance.SnakeBodyPrefab);
+                snakeBody = Instantiate(GameAssets.Instance.RedSnakeBodyPerfab);
             }
             snakeBody.GetComponent<SpriteRenderer>().sortingOrder = -bodyIndex;
             transform = snakeBody.transform;

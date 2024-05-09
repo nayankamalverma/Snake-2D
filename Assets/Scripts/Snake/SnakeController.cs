@@ -19,9 +19,9 @@ public class SnakeController : MonoBehaviour
     private int maxBoundX;  //grid size x axis
     private int maxBoundY;  //grid size y axis
 
-    public void Setup(FoodController levelGrid, int maxBoundX,int maxBoundY)
+    public void Setup(FoodController foodController, int maxBoundX,int maxBoundY)
     {
-        this.foodController = levelGrid;
+        this.foodController = foodController;
         this.maxBoundX = maxBoundX;
         this.maxBoundY = maxBoundY;
     }

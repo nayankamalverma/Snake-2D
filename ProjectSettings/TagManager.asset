@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SnakeHead
   - SnakeBody
+  - RedSnake
+  - BlueSnake
   layers:
   - Default
   - TransparentFX

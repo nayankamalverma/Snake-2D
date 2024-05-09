@@ -2,7 +2,7 @@ using Assets.Scripts.Snake;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueSnakeController : MonoBehaviour
+public class CoOpSnakeController : MonoBehaviour
 {
     //snake related vars
     private Vector2Int gridPostition; //snake head grid position
@@ -14,16 +14,22 @@ public class BlueSnakeController : MonoBehaviour
     private List<SnakeBodyPart> snakeBodyPartList;
     // tag 
     [SerializeField] private string objectTag;
-    //inital move diraction, spawn position , body prefab in CreateSnakeBody()
+    [SerializeField] private float SpawnPosX;
+    [SerializeField] private float SpawnPosY;
+    [SerializeField] private KeyCode up;
+    [SerializeField] private KeyCode down;
+    [SerializeField] private KeyCode left;
+    [SerializeField] private KeyCode right;
 
     //other vars
-    private FoodController foodController;
+    private CoOpFoodController foodController;
     private int maxBoundX;  //grid size x axis
     private int maxBoundY;  //grid size y axis
 
-    public void Setup(FoodController levelGrid, int maxBoundX, int maxBoundY)
+
+    public void Setup(CoOpFoodController foodController, int maxBoundX, int maxBoundY)
     {
-        this.foodController = levelGrid;
+        this.foodController = foodController;
         this.maxBoundX = maxBoundX;
         this.maxBoundY = maxBoundY;
     }
@@ -34,7 +40,15 @@ public class BlueSnakeController : MonoBehaviour
         gridMoveTimer = gridMoveTimerMax;
         objectTag = gameObject.tag;
         //check tag here for direcvtion
-        gridMoveDirection = MoveDirection.RIGHT;
+        if (objectTag == "BlueSnake")
+        {
+            gridMoveDirection = MoveDirection.RIGHT;
+        }
+        else
+        {
+            gridMoveDirection = MoveDirection.LEFT;
+        }
+        
         snakeBodyPositionList = new List<SnakeMovePosition>();
         snakeBodySize = 0;
         snakeBodyPartList = new List<SnakeBodyPart>();
@@ -43,40 +57,45 @@ public class BlueSnakeController : MonoBehaviour
 
     private void Start()
     {
-        
-        gridPostition = new Vector2Int(maxBoundX / 2, maxBoundY / 2);
+        if (objectTag == "BlueSnake")
+        {
+            gridPostition = new Vector2Int(3, 3);
+        }
+        else
+        {
+            gridPostition = new Vector2Int(maxBoundX-3, maxBoundY-3);
+        }
     }
     private void Update()
     {
-
         HandleInput();
         HandleGridMovement();
     }
 
     void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(up))
         {
             if (gridMoveDirection != MoveDirection.DOWN)
             {
                 gridMoveDirection = MoveDirection.UP;
             }
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(down))
         {
             if (gridMoveDirection != MoveDirection.UP)
             {
                 gridMoveDirection = MoveDirection.DOWN;
             }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(left))
         {
             if (gridMoveDirection != MoveDirection.RIGHT)
             {
                 gridMoveDirection = MoveDirection.LEFT;
             }
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(right))
         {
             if (gridMoveDirection != MoveDirection.LEFT)
             {
