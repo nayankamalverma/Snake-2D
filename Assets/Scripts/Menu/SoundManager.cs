@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManger : MonoBehaviour
@@ -8,12 +6,9 @@ public class SoundManger : MonoBehaviour
     private static SoundManger instance;
     public static SoundManger Instance { get { return instance; } }
 
-    [SerializeField]
-    private AudioSource Music;
-    [SerializeField]
-    private AudioSource soundEffect;
-    [SerializeField]
-    private SoundType[] Sounds;
+    [SerializeField] private AudioSource Music;
+    [SerializeField] private AudioSource soundEffect;
+    [SerializeField] private SoundType[] Sounds;
 
     private void Awake()
     {

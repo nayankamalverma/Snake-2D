@@ -6,25 +6,19 @@ using UnityEngine.UI;
 
 public class PauseMenuController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject snake;
-    [SerializeField]
-    private Button Resume;
-    [SerializeField]
-    private Button Exit;
-    private SnakeController snakeController;
+    [SerializeField] private Button resume;
+    [SerializeField] private Button exit; 
+
     private void Awake()
-    {
-        snakeController = snake.GetComponent<SnakeController>();
-        
-        Resume.onClick.AddListener(ResumeGame);
-        Exit.onClick.AddListener(LoadLobby);
+    {        
+        resume.onClick.AddListener(ResumeGame);
+        exit.onClick.AddListener(LoadLobby);
     }
 
     void ResumeGame()
     {
         SoundManger.Instance.Play(Sounds.ButtonClick);
-        snakeController.enabled=true;
+        GameManager.Instance.ResumeGame();
         gameObject.SetActive(false);
     }
 
@@ -32,5 +26,11 @@ public class PauseMenuController : MonoBehaviour
     {
         SoundManger.Instance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene(0);
+    }
+
+    private void OnDestroy()
+    {
+        resume.onClick.RemoveListener(ResumeGame);
+        exit.onClick.RemoveListener(LoadLobby);
     }
 }

@@ -9,10 +9,10 @@ public class GameAssets : MonoBehaviour
         Instance = this;
     }
 
-    public Sprite snakeHeadSprite;
-    public Sprite snakeBodySprite;
-    public Sprite foodSprite;
-    public GameObject foodPrefab;
+    public Sprite SnakeHeadSprite;
+    public Sprite SnakeBodySprite;
+    public Sprite FoodSprite;
+    public GameObject FoodPrefab;
     public GameObject SnakeBodyPrefab;
 
 }

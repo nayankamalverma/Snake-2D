@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,14 +5,14 @@ using UnityEngine.UI;
 public class GameOverMenuController : MonoBehaviour
 {
     [SerializeField]
-    private Button Restart;
+    private Button restart;
     [SerializeField]
-    private Button Exit;
+    private Button exit;
 
     private void Awake()
     {
-        Restart.onClick.AddListener(Reload);
-        Exit.onClick.AddListener(GoLobby);
+        restart.onClick.AddListener(Reload);
+        exit.onClick.AddListener(GoLobby);
     }
 
     private void Reload()
@@ -27,5 +25,12 @@ public class GameOverMenuController : MonoBehaviour
     {
         SoundManger.Instance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene(0);
+    }
+
+
+    private void OnDestroy()
+    {
+        restart.onClick.RemoveListener(Reload);
+        exit.onClick.RemoveListener(GoLobby);
     }
 }

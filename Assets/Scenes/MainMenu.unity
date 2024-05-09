@@ -1265,9 +1265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340a63e6bde7da45a77f35fa1af0f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Play: {fileID: 2013463605}
-  Co_Op: {fileID: 192426094}
-  Exit: {fileID: 587884473}
+  play: {fileID: 2013463605}
+  coOp: {fileID: 192426094}
+  exit: {fileID: 587884473}
 --- !u!1 &1426347561
 GameObject:
   m_ObjectHideFlags: 0
