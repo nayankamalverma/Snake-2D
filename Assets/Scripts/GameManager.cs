@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gamePauseMenu;
     [SerializeField] private GameObject gameOverMenu;
 
-    private int maxBoundX;
-    private int maxBoundY;
+    public int maxBoundX;
+    public int maxBoundY;
 
     //singleton
     private static GameManager instance;
@@ -64,7 +64,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        snake.enabled = false;
-        gameOverMenu.SetActive(true);
+       if(!snake.shield){ 
+            snake.shield = false;
+            snake.enabled = false;
+            gameOverMenu.SetActive(true);
+        }
     }
 }
