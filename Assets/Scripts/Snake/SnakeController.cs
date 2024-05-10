@@ -19,6 +19,9 @@ public class SnakeController : MonoBehaviour
     private int maxBoundX;  //grid size x axis
     private int maxBoundY;  //grid size y axis
 
+    //power ups
+    public bool shield;
+    public int scorePoint =10;
     public void Setup(FoodController foodController, int maxBoundX,int maxBoundY)
     {
         this.foodController = foodController;
@@ -34,6 +37,7 @@ public class SnakeController : MonoBehaviour
         snakeBodyPositionList = new List<SnakeMovePosition>();
         snakeBodySize = 0;
         snakeBodyPartList = new List<SnakeBodyPart>();
+        shield = false;
     }
 
     private void Start()
@@ -123,7 +127,7 @@ public class SnakeController : MonoBehaviour
     {
         snakeBodySize++;
         CreateSnakeBody();
-        scoreController.IncreaseScore(10);
+        scoreController.IncreaseScore(scorePoint);
         foodController.SpawnFood();
     }
 
