@@ -1,24 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField]
-    private Button Play;
-    [SerializeField]
-    private Button Co_Op;
-    [SerializeField]
-    private Button Exit;
+    [SerializeField] private Button play;
+    [SerializeField] private Button coOp;
+    [SerializeField] private Button exit;
     private void Awake()
     {
-        Play.onClick.AddListener(LoadGame);
-        Co_Op.onClick.AddListener(LoadCoOpGame);
-        Exit.onClick.AddListener(ExitGame);
+        play.onClick.AddListener(LoadGame);
+        coOp.onClick.AddListener(LoadCoOpGame);
+        exit.onClick.AddListener(ExitGame);
     }
 
     private void LoadGame()
@@ -29,7 +22,7 @@ public class MenuController : MonoBehaviour
     private void LoadCoOpGame()
     {
         SoundManger.Instance.Play(Sounds.ButtonClick);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
     private void ExitGame()
     {
@@ -37,10 +30,10 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    
-    
-
-    
-
-    
+    private void OnDestroy()
+    {
+        play.onClick.RemoveListener(LoadGame);
+        coOp.onClick.RemoveListener(LoadCoOpGame);
+        exit.onClick.RemoveListener(ExitGame);
+    }
 }

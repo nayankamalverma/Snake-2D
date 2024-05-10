@@ -2,17 +2,22 @@
 
 public class GameAssets : MonoBehaviour
 {
-
-    public static GameAssets Instance;
+    private static GameAssets instance;
+    public static GameAssets Instance {  get { return instance; } }
 
     private void Awake() {
-        Instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public Sprite snakeHeadSprite;
-    public Sprite snakeBodySprite;
-    public Sprite foodSprite;
-    public GameObject foodPrefab;
+    public GameObject FoodPrefab;
     public GameObject SnakeBodyPrefab;
+    public GameObject RedSnakeBodyPerfab;
+    public GameObject BlueSnakeBodyPerfab;
 
 }
